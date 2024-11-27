@@ -88,7 +88,8 @@ public class PulsarTableSerializationSchema implements PulsarSerializationSchema
         if (upsertMode) {
             if (kind == RowKind.DELETE || kind == RowKind.UPDATE_BEFORE) {
                 // transform the message as the tombstone message
-                serializedData = null;
+                // 非NULL，设置空字节，builder中会判断是否为null
+                serializedData = new byte[0];
             } else {
                 // make the message to be INSERT to be compliant with the INSERT-ONLY format
                 final RowData valueRow = createProjectedRow(consumedRow, kind, valueFieldGetters);

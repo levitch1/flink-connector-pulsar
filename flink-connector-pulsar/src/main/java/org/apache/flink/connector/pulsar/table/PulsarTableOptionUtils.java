@@ -170,9 +170,10 @@ public class PulsarTableOptionUtils {
 
         final int physicalFieldCount = LogicalTypeChecks.getFieldCount(physicalType);
         final IntStream physicalFields = IntStream.range(0, physicalFieldCount);
-        final int[] keyProjection = createKeyFormatProjection(options, physicalDataType);
+        // 为什么要过滤掉keyProjection呢？
+        // final int[] keyProjection = createKeyFormatProjection(options, physicalDataType);
         return physicalFields
-                .filter(pos -> IntStream.of(keyProjection).noneMatch(k -> k == pos))
+                // .filter(pos -> IntStream.of(keyProjection).noneMatch(k -> k == pos))
                 .toArray();
     }
 
